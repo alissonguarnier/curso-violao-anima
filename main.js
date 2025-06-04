@@ -528,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let finalEmbedUrl = "URL de incorporação não pôde ser gerada";
         if (processedVideoId) {
-            finalEmbedUrl = `https://www.google.com/search?q=https://www.youtube.com/embed/VIDEO_ID5{processedVideoId}`;
+            finalEmbedUrl = `https://www.youtube.com/embed/${processedVideoId}`;
         }
 
         console.log(

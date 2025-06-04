@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Curso de Violão - Ânima</title>
-  <script src="https://cdn.tailwindcss.com"></script> <!-- Se ainda for usar o Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -149,12 +149,12 @@
       <form id="adminLoginForm" class="space-y-4">
         <div>
           <label for="adminEmail" class="block text-sm font-medium text-gray-700">Email:</label>
-          <input type="email" id="adminEmail" name="email" required
+          <input type="email" id="adminEmail" name="adminEmail" required
             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
         </div>
         <div>
           <label for="adminPassword" class="block text-sm font-medium text-gray-700">Senha:</label>
-          <input type="password" id="adminPassword" name="password" required
+          <input type="password" id="adminPassword" name="adminPassword" required
             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
         </div>
         <button type="submit"
@@ -181,7 +181,7 @@
         </svg>
       </button>
     </div>
-    <div class="admin-panel-content"> <!-- Conteúdo do painel aqui -->
+    <div class="admin-panel-content">
       <p id="adminUserId" class="text-xs text-gray-500 mb-3"></p>
 
       <form id="addModuleForm" class="mb-6 p-4 border border-gray-200 rounded-md">
@@ -207,7 +207,6 @@
           <select id="modulesSelectForLesson" name="moduleId" required
             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white">
             <option value="">Selecione um Módulo</option>
-            <!-- Options populated by JS -->
           </select>
         </div>
         <div class="mb-3">
