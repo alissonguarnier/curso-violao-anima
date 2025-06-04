@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso de Violão - Ânima</title>
+  <script src="https://cdn.tailwindcss.com"></script> <!-- Se ainda for usar o Tailwind CDN -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="text-gray-800">
+
+  <!-- Login Page Wrapper -->
+  <div id="loginPageWrapper">
+    <div class="login-card">
+      <h2 class="text-3xl font-bold text-center anima-blue mb-6">Curso de Violão - Ânima</h2>
+
+      <form id="userLoginForm" class="space-y-4 mb-4">
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">Login de Usuário</h3>
+        <div>
+          <label for="userLoginEmail" class="block text-sm font-medium text-gray-700">Email:</label>
+          <input type="email" id="userLoginEmail" name="email" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <div>
+          <label for="userLoginPassword" class="block text-sm font-medium text-gray-700">Senha:</label>
+          <input type="password" id="userLoginPassword" name="password" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <button type="submit"
+          class="w-full anima-bg-blue text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Entrar</button>
+        <p id="userLoginError" class="text-red-500 text-sm mt-2"></p>
+      </form>
+
+      <form id="userSignupForm" class="space-y-4 mb-4 hidden">
+        <h3 class="text-xl font-semibold text-gray-700 mb-2">Cadastro de Usuário</h3>
+        <div>
+          <label for="userSignupEmail" class="block text-sm font-medium text-gray-700">Email:</label>
+          <input type="email" id="userSignupEmail" name="email" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <div>
+          <label for="userSignupPassword" class="block text-sm font-medium text-gray-700">Senha:</label>
+          <input type="password" id="userSignupPassword" name="password" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <div>
+          <label for="userSignupConfirmPassword" class="block text-sm font-medium text-gray-700">Confirmar
+            Senha:</label>
+          <input type="password" id="userSignupConfirmPassword" name="confirmPassword" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <button type="submit"
+          class="w-full anima-bg-blue text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Cadastrar</button>
+        <p id="userSignupError" class="text-red-500 text-sm mt-2"></p>
+      </form>
+
+      <div class="text-center">
+        <button id="toggleToSignupBtn" class="text-sm anima-blue hover:underline">Não tem conta? Cadastre-se</button>
+        <button id="toggleToLoginBtn" class="text-sm anima-blue hover:underline hidden">Já tem conta? Faça
+          login</button>
+      </div>
+      <hr class="my-6">
+      <button id="pageAdminLoginBtn"
+        class="w-full bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">Login
+        como Administrador</button>
+    </div>
+  </div>
+
+  <!-- Course Content Wrapper (initially hidden) -->
+  <div id="courseContentWrapper" class="hidden flex-col h-screen">
+    <!-- Header -->
+    <header class="anima-bg-blue text-white p-4 shadow-md flex justify-between items-center z-20">
+      <div class="flex items-center">
+        <button id="openSidebarButton" class="mr-3 p-2 rounded-md hover:bg-blue-700 md:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <h1 class="text-xl md:text-2xl font-bold">Curso de Violão - Ânima</h1>
+      </div>
+      <div>
+        <span id="loggedInUserEmail" class="text-sm mr-4"></span>
+        <button id="userLogoutBtn"
+          class="hidden px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-150 text-sm">Sair</button>
+        <button id="adminLogoutBtn"
+          class="hidden px-4 py-2 bg-red-700 text-white rounded-md hover:bg-red-800 transition-colors duration-150 text-sm">Sair
+          (Admin)</button>
+      </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+      <!-- Sidebar (Modules) -->
+      <aside id="sidebar"
+        class="w-64 md:w-72 bg-white border-r border-gray-200 p-4 overflow-y-auto transform -translate-x-full md:translate-x-0 fixed md:static h-full md:h-auto z-10 sidebar">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold anima-blue">Módulos do Curso</h2>
+          <button id="closeSidebarButton" class="p-2 rounded-md hover:bg-gray-200 md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <ul id="modulesList">
+          <!-- Modules will be loaded here by JavaScript -->
+        </ul>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto bg-gray-50 main-content">
+        <div class="max-w-4xl mx-auto">
+          <div id="lessonDisplay" class="mb-6">
+            <h3 id="currentModuleTitle" class="text-2xl font-semibold text-gray-700 mb-1">Selecione um Módulo</h3>
+            <h4 id="currentLessonTitle" class="text-xl font-medium anima-blue mb-4">Selecione uma Aula</h4>
+
+            <div id="videoPlayerContainer"
+              class="mb-4 bg-gray-200 rounded-lg flex items-center justify-center min-h-[200px] md:min-h-[400px]">
+              <p class="text-gray-500">Player de vídeo aparecerá aqui.</p>
+            </div>
+
+            <a id="attachmentLink" href="#" target="_blank"
+              class="hidden inline-block px-6 py-3 anima-bg-blue text-white rounded-md hover:bg-blue-700 transition-colors duration-150">
+              Baixar Material Complementar (Drive)
+            </a>
+          </div>
+
+          <hr class="my-6 border-gray-300">
+
+          <div>
+            <h3 class="text-xl font-semibold text-gray-700 mb-3">Aulas do Módulo</h3>
+            <div id="lessonsContainer" class="space-y-3">
+              <!-- Lessons for the selected module will be loaded here -->
+              <p class="text-gray-500">Selecione um módulo para ver as aulas.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div id="adminLoginModal" class="modal">
+    <div class="modal-content">
+      <span id="closeLoginModalBtn" class="close-button">×</span>
+      <h3 class="text-xl font-semibold mb-4 anima-blue">Login Administrador</h3>
+      <form id="adminLoginForm" class="space-y-4">
+        <div>
+          <label for="adminEmail" class="block text-sm font-medium text-gray-700">Email:</label>
+          <input type="email" id="adminEmail" name="email" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <div>
+          <label for="adminPassword" class="block text-sm font-medium text-gray-700">Senha:</label>
+          <input type="password" id="adminPassword" name="password" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <button type="submit"
+          class="w-full anima-bg-blue text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Entrar
+          como Admin</button>
+        <p id="adminLoginError" class="text-red-500 text-sm mt-2"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Panel (hidden by default) -->
+  <div id="adminPanel"
+    class="hidden fixed bottom-0 right-0 m-4 p-6 bg-white border border-blue-300 shadow-xl rounded-lg max-w-md w-full max-h-[80vh] overflow-y-auto z-50">
+    <div id="adminPanelHeader">
+      <h3 class="text-xl font-bold anima-blue">Painel do Administrador</h3>
+      <button id="toggleAdminPanelBtn" class="p-2 rounded-md hover:bg-gray-200">
+        <svg id="minimizeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+        </svg>
+        <svg id="maximizeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600 hidden" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4h4m12 4V4h-4M4 16v4h4m12-4v4h-4" />
+        </svg>
+      </button>
+    </div>
+    <div class="admin-panel-content"> <!-- Conteúdo do painel aqui -->
+      <p id="adminUserId" class="text-xs text-gray-500 mb-3"></p>
+
+      <form id="addModuleForm" class="mb-6 p-4 border border-gray-200 rounded-md">
+        <h4 class="text-lg font-semibold mb-2">Adicionar Novo Módulo</h4>
+        <div class="mb-3">
+          <label for="moduleName" class="block text-sm font-medium text-gray-700">Nome do Módulo:</label>
+          <input type="text" id="moduleName" name="moduleName" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-3">
+          <label for="moduleOrder" class="block text-sm font-medium text-gray-700">Ordem (ex: 1, 2, 3):</label>
+          <input type="number" id="moduleOrder" name="moduleOrder" placeholder="0"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <button type="submit" class="w-full anima-bg-blue text-white py-2 px-4 rounded-md hover:bg-blue-700">Adicionar
+          Módulo</button>
+      </form>
+
+      <form id="addLessonForm" class="p-4 border border-gray-200 rounded-md">
+        <h4 class="text-lg font-semibold mb-2">Adicionar Nova Aula</h4>
+        <div class="mb-3">
+          <label for="modulesSelectForLesson" class="block text-sm font-medium text-gray-700">Selecionar Módulo:</label>
+          <select id="modulesSelectForLesson" name="moduleId" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white">
+            <option value="">Selecione um Módulo</option>
+            <!-- Options populated by JS -->
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="lessonTitle" class="block text-sm font-medium text-gray-700">Título da Aula:</label>
+          <input type="text" id="lessonTitle" name="lessonTitle" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-3">
+          <label for="youtubeId" class="block text-sm font-medium text-gray-700">ID ou URL do Vídeo YouTube:</label>
+          <input type="text" id="youtubeId" name="youtubeId" required placeholder="Ex: dQw4w9WgXcQ ou URL completa"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-3">
+          <label for="attachmentUrl" class="block text-sm font-medium text-gray-700">Link do Anexo (Google
+            Drive):</label>
+          <input type="url" id="attachmentUrl" name="attachmentUrl" placeholder="https://drive.google.com/..."
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-3">
+          <label for="lessonOrder" class="block text-sm font-medium text-gray-700">Ordem da Aula (ex: 1, 2, 3):</label>
+          <input type="number" id="lessonOrder" name="lessonOrder" placeholder="0"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <button type="submit" class="w-full anima-bg-blue text-white py-2 px-4 rounded-md hover:bg-blue-700">Adicionar
+          Aula</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Module Modal -->
+  <div id="editModuleModal" class="modal">
+    <div class="modal-content">
+      <span id="closeEditModuleModalBtn" class="close-button">×</span>
+      <h3 class="text-xl font-semibold mb-4 anima-blue">Editar Módulo</h3>
+      <form id="editModuleForm" class="space-y-4">
+        <input type="hidden" id="editModuleId">
+        <div>
+          <label for="editModuleName" class="block text-sm font-medium text-gray-700">Nome do Módulo:</label>
+          <input type="text" id="editModuleName" name="moduleName" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <div>
+          <label for="editModuleOrder" class="block text-sm font-medium text-gray-700">Ordem:</label>
+          <input type="number" id="editModuleOrder" name="moduleOrder" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <button type="submit"
+          class="w-full anima-bg-blue text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Salvar
+          Alterações</button>
+        <p id="editModuleError" class="text-red-500 text-sm mt-2"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Edit Lesson Modal -->
+  <div id="editLessonModal" class="modal">
+    <div class="modal-content">
+      <span id="closeEditLessonModalBtn" class="close-button">×</span>
+      <h3 class="text-xl font-semibold mb-4 anima-blue">Editar Aula</h3>
+      <form id="editLessonForm" class="space-y-4">
+        <input type="hidden" id="editLessonModuleId">
+        <input type="hidden" id="editLessonId">
+        <div>
+          <label for="editLessonTitle" class="block text-sm font-medium text-gray-700">Título da Aula:</label>
+          <input type="text" id="editLessonTitle" name="lessonTitle" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <div>
+          <label for="editYoutubeId" class="block text-sm font-medium text-gray-700">ID ou URL do Vídeo YouTube:</label>
+          <input type="text" id="editYoutubeId" name="youtubeId" required placeholder="Ex: dQw4w9WgXcQ ou URL completa"
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+          <label for="editAttachmentUrl" class="block text-sm font-medium text-gray-700">Link do Anexo (Google
+            Drive):</label>
+          <input type="url" id="editAttachmentUrl" name="attachmentUrl" placeholder="https://drive.google.com/..."
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+          <label for="editLessonOrder" class="block text-sm font-medium text-gray-700">Ordem da Aula:</label>
+          <input type="number" id="editLessonOrder" name="lessonOrder" required
+            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <button type="submit"
+          class="w-full anima-bg-blue text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Salvar
+          Alterações</button>
+        <p id="editLessonError" class="text-red-500 text-sm mt-2"></p>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+
+</html>

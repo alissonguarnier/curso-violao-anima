@@ -1,0 +1,7 @@
+{
+  "hosting": {
+    "site": "curso-anima-violao",
+    "public": ".",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}
